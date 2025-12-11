@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alex Chen | Tappr</title>
+    <meta name="description" content="Connect with Alex Chen - Product Designer at TechCorp">
+    <meta property="og:title" content="Alex Chen | Tappr">
+    <meta property="og:description" content="Product Designer at TechCorp">
+    <meta property="og:type" content="profile">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --bg: #04060b;
+    --surface: #0a0f1a;
+    --surface2: #111827;
+    --border: rgba(255,255,255,0.08);
+    --text: #f9fafb;
+    --text2: #9ca3af;
+    --muted: #6b7280;
+    --accent: #3b82f6;
+    --accent2: #60a5fa;
+    --green: #10b981;
+    --purple: #8b5cf6;
+}
+html, body {
+    height: 100%;
+}
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cover / Header */
+.profile-cover {
+    height: 140px;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    position: relative;
+}
+.cover-pattern {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Profile Card */
+.profile-container {
+    flex: 1;
+    max-width: 440px;
+    width: 100%;
+    margin: -70px auto 0;
+    padding: 0 1rem 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.profile-header {
+    text-align: center;
+    padding: 0 1.5rem 1.5rem;
+}
+
+.avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: -55px auto 1rem;
+    border: 5px solid var(--surface);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.profile-title {
+    font-size: 0.95rem;
+    color: var(--text2);
+    margin-bottom: 0.5rem;
+}
+
+.profile-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+.profile-location svg {
+    width: 14px;
+    height: 14px;
+}
+
+.profile-bio {
+    font-size: 0.9rem;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    padding: 0 0.25rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+}
+.contact-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+}
+.contact-item:active {
+    transform: translateY(0);
+}
+
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.contact-icon svg {
+    width: 20px;
+    height: 20px;
+}
+.contact-icon.phone { background: rgba(16,185,129,0.15); color: var(--green); }
+.contact-icon.email { background: rgba(59,130,246,0.15); color: var(--accent2); }
+.contact-icon.text { background: rgba(139,92,246,0.15); color: var(--purple); }
+.contact-icon.whatsapp { background: rgba(37,211,102,0.15); color: #25d366; }
+
+.contact-info {
+    min-width: 0;
+}
+.contact-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.contact-value {
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Links Section */
+.links-section {
+    padding: 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.link-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 0.6rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+}
+.link-item:last-child {
+    margin-bottom: 0;
+}
+.link-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+}
+.link-item:active {
+    transform: translateY(0);
+}
+
+.link-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.link-icon svg {
+    width: 22px;
+    height: 22px;
+}
+.link-icon.linkedin { background: rgba(0,119,181,0.15); color: #0077b5; }
+.link-icon.calendar { background: rgba(139,92,246,0.15); color: var(--purple); }
+.link-icon.website { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.link-icon.twitter { background: rgba(59,130,246,0.15); color: var(--accent2); }
+.link-icon.instagram { background: rgba(236,72,153,0.15); color: #ec4899; }
+.link-icon.github { background: rgba(255,255,255,0.1); color: var(--text); }
+.link-icon.dribbble { background: rgba(234,76,137,0.15); color: #ea4c89; }
+.link-icon.youtube { background: rgba(255,0,0,0.15); color: #ff0000; }
+.link-icon.tiktok { background: rgba(255,255,255,0.1); color: var(--text); }
+.link-icon.portfolio { background: rgba(59,130,246,0.15); color: var(--accent2); }
+
+.link-content {
+    flex: 1;
+    min-width: 0;
+}
+.link-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+}
+.link-subtitle {
+    font-size: 0.8rem;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.link-arrow {
+    color: var(--muted);
+    flex-shrink: 0;
+}
+.link-arrow svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Save Contact Button */
+.save-section {
+    padding: 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.save-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(180deg, #4a90f7 0%, #3b82f6 50%, #2563eb 100%);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.2),
+        0 4px 15px rgba(59,130,246,0.4);
+}
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.2),
+        0 8px 25px rgba(59,130,246,0.5);
+}
+.save-btn:active {
+    transform: translateY(0);
+}
+.save-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Success state for save */
+.save-btn.saved {
+    background: var(--green);
+    box-shadow: 0 4px 15px rgba(16,185,129,0.4);
+}
+
+/* Footer */
+.profile-footer {
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+.powered-by {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 100px;
+    transition: all 0.2s;
+}
+.powered-by:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--text2);
+}
+.powered-by span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+}
+.powered-by span em {
+    font-style: normal;
+    color: var(--accent2);
+}
+
+/* Lead Capture Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px 24px 24px 24px;
+    width: 100%;
+    max-width: 440px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.modal-header h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.modal-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: none;
+    color: var(--text2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.modal-close:hover {
+    background: rgba(255,255,255,0.1);
+    color: var(--text);
+}
+.modal-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.modal-input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+.modal-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.modal-input::placeholder {
+    color: var(--muted);
+}
+
+.modal-submit {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: var(--accent);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.modal-submit:hover {
+    background: #2563eb;
+}
+
+.modal-note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+/* Share bar (optional) */
+.share-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+}
+.share-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.share-btn:hover {
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
+    border-color: var(--border2);
+}
+.share-btn svg {
+    width: 20px;
+    height: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- Cover -->
+<div class="profile-cover">
+    <div class="cover-pattern"></div>
+</div>
+
+<!-- Profile -->
+<div class="profile-container">
+    <div class="profile-card">
+        <!-- Header -->
+        <div class="profile-header">
+            <div class="avatar">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" alt="Alex Chen">
+            </div>
+            <h1 class="profile-name">Alex Chen</h1>
+            <p class="profile-title">Product Designer at TechCorp</p>
+            <span class="profile-location">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                San Francisco, CA
+            </span>
+            <p class="profile-bio">Designing intuitive products that people love. 10+ years crafting experiences at startups and Fortune 500s.</p>
+        </div>
+        
+        <!-- Contact -->
+        <div class="contact-section">
+            <h3 class="section-title">Contact</h3>
+            <div class="contact-grid">
+                <a href="tel:+15551234567" class="contact-item">
+                    <div class="contact-icon phone">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.33a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.74.34 1.52.57 2.33.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">(555) 123-4567</div>
+                    </div>
+                </a>
+                <a href="mailto:alex@techcorp.com" class="contact-item">
+                    <div class="contact-icon email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">alex@techcorp.com</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Links -->
+        <div class="links-section">
+            <h3 class="section-title">Links</h3>
+            
+            <a href="https://linkedin.com/in/alexchen" target="_blank" class="link-item">
+                <div class="link-icon linkedin">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">LinkedIn</div>
+                    <div class="link-subtitle">Connect with me</div>
+                </div>
+                <div class="link-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </a>
+            
+            <a href="https://calendly.com/alexchen" target="_blank" class="link-item">
+                <div class="link-icon calendar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Book a Meeting</div>
+                    <div class="link-subtitle">30 min intro call</div>
+                </div>
+                <div class="link-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </a>
+            
+            <a href="https://alexchen.design" target="_blank" class="link-item">
+                <div class="link-icon portfolio">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Portfolio</div>
+                    <div class="link-subtitle">alexchen.design</div>
+                </div>
+                <div class="link-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </a>
+            
+            <a href="https://dribbble.com/alexchen" target="_blank" class="link-item">
+                <div class="link-icon dribbble">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.374 0 12s5.374 12 12 12 12-5.374 12-12S18.626 0 12 0zm7.885 5.46a10.211 10.211 0 0 1 2.276 6.28c-.334-.07-3.67-.747-7.027-.323-.072-.163-.139-.331-.21-.5a24.439 24.439 0 0 0-.552-1.217c3.71-1.514 5.397-3.693 5.513-3.84zM12 1.838a10.148 10.148 0 0 1 6.617 2.436c-.092.131-1.636 2.188-5.226 3.524A91.947 91.947 0 0 0 8.893 2.46 10.19 10.19 0 0 1 12 1.838zM6.855 3.262a86.782 86.782 0 0 1 4.468 5.444c-5.634 1.5-10.604 1.478-11.142 1.468A10.213 10.213 0 0 1 6.855 3.262zM1.827 12.02c0-.081.003-.162.005-.242.522.01 6.293.078 12.294-1.717.343.668.667 1.348.963 2.029-.127.036-.256.076-.384.118-6.304 2.033-9.654 7.58-9.789 7.8A10.177 10.177 0 0 1 1.827 12.02zm4.163 8.243c.087-.146 2.523-5.117 9.29-6.855.019-.006.037-.01.056-.015a70.42 70.42 0 0 1 2.477 8.77A10.182 10.182 0 0 1 12 22.162a10.148 10.148 0 0 1-5.992-1.899h-.018zm9.734.895a77.14 77.14 0 0 0-2.297-8.182c3.149-.499 5.914.32 6.26.428a10.196 10.196 0 0 1-3.963 7.754z"/></svg>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Dribbble</div>
+                    <div class="link-subtitle">View my shots</div>
+                </div>
+                <div class="link-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Share -->
+        <div class="share-bar">
+            <button class="share-btn" onclick="shareProfile('copy')" title="Copy link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <button class="share-btn" onclick="shareProfile('sms')" title="Share via SMS">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </button>
+            <button class="share-btn" onclick="shareProfile('share')" title="Share">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </button>
+        </div>
+        
+        <!-- Save Contact -->
+        <div class="save-section">
+            <button class="save-btn" onclick="openSaveModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Save Contact
+            </button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="profile-footer">
+        <a href="https://tappr.one" class="powered-by">
+            Made with <span>tap<em>pr</em></span>
+        </a>
+    </div>
+</div>
+
+<!-- Lead Capture Modal -->
+<div class="modal-overlay" id="saveModal" onclick="closeSaveModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3>Save my contact too</h3>
+            <button class="modal-close" onclick="closeSaveModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p style="color: var(--text2); font-size: 0.9rem; margin-bottom: 1rem;">Share your info so Alex can follow up with you.</p>
+            <form class="modal-form" onsubmit="handleLeadCapture(event)">
+                <input type="text" class="modal-input" placeholder="Your name" required>
+                <input type="email" class="modal-input" placeholder="Your email" required>
+                <input type="tel" class="modal-input" placeholder="Your phone (optional)">
+                <button type="submit" class="modal-submit">Save & Exchange</button>
+            </form>
+            <p class="modal-note">Or <a href="#" onclick="downloadVCard(event)" style="color: var(--accent2);">just download contact</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+function openSaveModal() {
+    document.getElementById('saveModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSaveModal(e) {
+    if (!e || e.target === document.getElementById('saveModal')) {
+        document.getElementById('saveModal').classList.remove('show');
+        document.body.style.overflow = '';
+    }
+}
+
+function handleLeadCapture(e) {
+    e.preventDefault();
+    // Here you would send the lead data to your backend
+    // Then download the vCard
+    downloadVCard();
+    closeSaveModal();
+    
+    // Show success state
+    const btn = document.querySelector('.save-btn');
+    btn.classList.add('saved');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Saved!';
+}
+
+function downloadVCard(e) {
+    if (e) e.preventDefault();
+    
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Alex Chen
+N:Chen;Alex;;;
+ORG:TechCorp
+TITLE:Product Designer
+TEL;TYPE=WORK,VOICE:+15551234567
+EMAIL;TYPE=WORK:alex@techcorp.com
+URL:https://alexchen.design
+ADR;TYPE=WORK:;;San Francisco;CA;;USA
+END:VCARD`;
+    
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Alex Chen.vcf';
+    a.click();
+    window.URL.revokeObjectURL(url);
+    
+    // Close modal if open
+    closeSaveModal();
+}
+
+function shareProfile(method) {
+    const url = window.location.href;
+    const title = 'Alex Chen - Tappr Profile';
+    
+    if (method === 'copy') {
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Link copied!');
+        });
+    } else if (method === 'sms') {
+        window.open(`sms:?body=Check out Alex Chen's profile: ${url}`);
+    } else if (method === 'share' && navigator.share) {
+        navigator.share({ title, url });
+    } else if (method === 'share') {
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Link copied!');
+        });
+    }
+}
+</script>
+</body>
+</html>
