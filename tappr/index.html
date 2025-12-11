@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tappr | One Tap. Every Connection.</title>
+    <meta name="description" content="NFC business cards that share your contact info with one tap. No app needed. Update anytime.">
+    <link rel="canonical" href="https://tappr.one/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tappr.one/">
+    <meta property="og:title" content="Tappr | One Tap. Every Connection.">
+    <meta property="og:description" content="NFC business cards that share your contact info with one tap. No app needed.">
+    <meta property="og:image" content="https://tappr.one/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --bg: #030508;
+    --bg2: #070a10;
+    --surface: #0d1117;
+    --surface2: #161b22;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.1);
+    --text: #f0f6fc;
+    --text2: #8b949e;
+    --muted: #6e7681;
+    --blue: #58a6ff;
+    --blue2: #79c0ff;
+    --blue-glow: rgba(56,139,253,0.4);
+    --purple: #a371f7;
+    --purple-glow: rgba(163,113,247,0.3);
+    --green: #3fb950;
+    --gold: #d29922;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+body::before { content: ''; position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 10000; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 2rem; background: rgba(3,5,8,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: all 0.3s; }
+nav.scrolled { padding: 0.75rem 2rem; background: rgba(3,5,8,0.95); }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; cursor: pointer; }
+.logo span { background: linear-gradient(135deg, var(--blue), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-links { display: flex; align-items: center; gap: 2.5rem; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text2); transition: color 0.2s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--blue), var(--purple)); transition: width 0.3s; }
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+.nav-auth { display: flex; align-items: center; gap: 0.5rem; }
+.nav-login { padding: 0.6rem 1.25rem; color: var(--text2); font-weight: 500; font-size: 0.9rem; border-radius: 8px; transition: all 0.2s; }
+.nav-login:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+
+.btn-glow { position: relative; padding: 0.7rem 1.5rem; background: linear-gradient(135deg, var(--blue), #2563eb); color: white; font-weight: 600; font-size: 0.9rem; border-radius: 10px; overflow: hidden; transition: all 0.3s; }
+.btn-glow::before { content: ''; position: absolute; inset: -2px; background: linear-gradient(135deg, var(--blue), var(--purple), var(--blue)); border-radius: 12px; z-index: -1; opacity: 0; filter: blur(12px); transition: opacity 0.3s; }
+.btn-glow:hover::before { opacity: 1; }
+.btn-glow:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--blue-glow); }
+.btn-glow-large { padding: 1rem 2.25rem; font-size: 1rem; border-radius: 12px; }
+.btn-secondary { padding: 1rem 2rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border2); color: var(--text); font-weight: 600; font-size: 1rem; border-radius: 12px; transition: all 0.3s; }
+.btn-secondary:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+.mobile-menu { display: none; color: var(--text); padding: 0.5rem; }
+@media (max-width: 768px) { .nav-links { display: none; } .mobile-menu { display: block; } }
+
+.nav-user { display: flex; align-items: center; gap: 0.75rem; padding: 0.4rem 1rem 0.4rem 0.4rem; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; cursor: pointer; transition: all 0.2s; }
+.nav-user:hover { border-color: var(--border2); background: var(--surface2); }
+.nav-user-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; }
+.nav-user-name { font-size: 0.85rem; font-weight: 500; }
+.nav-user-dropdown { position: absolute; top: calc(100% + 8px); right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.5rem; min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.nav-user-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-user-dropdown a, .nav-user-dropdown button { display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text2); transition: all 0.15s; text-align: left; }
+.nav-user-dropdown a:hover, .nav-user-dropdown button:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.nav-user-dropdown svg { width: 18px; height: 18px; opacity: 0.6; }
+.dropdown-divider { height: 1px; background: var(--border); margin: 0.5rem 0; }
+
+.hero { min-height: 100vh; padding: 10rem 2rem 6rem; position: relative; display: flex; align-items: center; overflow: hidden; }
+.hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; animation: float 8s ease-in-out infinite; }
+.hero-orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, var(--blue-glow), transparent 60%); top: -10%; right: -10%; }
+.hero-orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, var(--purple-glow), transparent 60%); bottom: -20%; left: -10%; animation-delay: -4s; }
+.hero-orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(63,185,80,0.2), transparent 60%); top: 50%; left: 30%; animation-delay: -2s; }
+@keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -30px) scale(1.05); } 66% { transform: translate(-20px, 20px) scale(0.95); } }
+.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black, transparent); }
+.hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+@media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; text-align: center; } }
+.hero-content { max-width: 560px; }
+@media (max-width: 960px) { .hero-content { max-width: 100%; margin: 0 auto; } }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.5rem 1rem 0.5rem 0.6rem; background: rgba(63,185,80,0.1); border: 1px solid rgba(63,185,80,0.2); border-radius: 100px; font-size: 0.85rem; font-weight: 500; color: var(--green); margin-bottom: 1.5rem; }
+.hero-badge-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; box-shadow: 0 0 10px var(--green); }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+.hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+.hero h1 .gradient { background: linear-gradient(135deg, var(--blue2), var(--purple), var(--blue)); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradient-shift 5s ease infinite; }
+@keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+.hero-desc { font-size: 1.2rem; color: var(--text2); line-height: 1.7; margin-bottom: 2.5rem; }
+.hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+@media (max-width: 960px) { .hero-buttons { justify-content: center; } }
+.hero-stats { display: flex; gap: 3rem; }
+@media (max-width: 960px) { .hero-stats { justify-content: center; } }
+.hero-stat { text-align: left; }
+@media (max-width: 960px) { .hero-stat { text-align: center; } }
+.hero-stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, var(--text), var(--blue2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-stat-label { font-size: 0.85rem; color: var(--muted); }
+
+.hero-card-container { perspective: 1000px; display: flex; justify-content: center; align-items: center; }
+@media (max-width: 960px) { .hero-card-container { margin-top: 2rem; transform: scale(0.85); } }
+.hero-card-wrapper { position: relative; transform-style: preserve-3d; transition: transform 0.1s ease-out; }
+.hero-card { width: 380px; height: 240px; background: linear-gradient(145deg, #1a1f2e 0%, #0d1117 100%); border-radius: 20px; padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; transform-style: preserve-3d; box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 30px 60px rgba(0,0,0,0.5), 0 0 100px var(--blue-glow); overflow: hidden; }
+.hero-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%); border-radius: 20px; pointer-events: none; }
+.hero-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 55%, transparent 60%); transform: translateX(-100%); animation: shimmer 3s ease-in-out infinite; border-radius: 20px; }
+@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+.hero-card-header { display: flex; justify-content: space-between; align-items: flex-start; transform: translateZ(30px); }
+.hero-card-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; }
+.hero-card-logo span { color: var(--blue2); }
+.hero-card-chip { width: 50px; height: 38px; background: linear-gradient(145deg, #f4d03f, #c9a227); border-radius: 6px; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.hero-card-chip::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(0,0,0,0.2); border-radius: 3px; }
+.hero-card-chip::after { content: ''; position: absolute; top: 50%; left: 4px; right: 4px; height: 1px; background: rgba(0,0,0,0.2); }
+.hero-card-footer { display: flex; justify-content: space-between; align-items: flex-end; transform: translateZ(20px); }
+.hero-card-name { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.hero-card-title { font-size: 0.8rem; color: var(--text2); margin-top: 0.25rem; }
+.hero-card-nfc { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 50%; color: var(--blue); animation: nfc-pulse 2s ease-in-out infinite; }
+@keyframes nfc-pulse { 0%, 100% { box-shadow: 0 0 0 0 var(--blue-glow); } 50% { box-shadow: 0 0 0 15px transparent; } }
+.tap-indicator { position: absolute; right: -30px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; animation: tap-float 2s ease-in-out infinite; }
+@keyframes tap-float { 0%, 100% { transform: translateY(-50%) translateX(0); } 50% { transform: translateY(-50%) translateX(-10px); } }
+.tap-finger { font-size: 2rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+.tap-ripple { position: absolute; width: 60px; height: 60px; border: 2px solid var(--blue); border-radius: 50%; opacity: 0; animation: ripple 2s ease-out infinite; }
+.tap-ripple:nth-child(2) { animation-delay: 0.5s; }
+.tap-ripple:nth-child(3) { animation-delay: 1s; }
+@keyframes ripple { 0% { transform: scale(0.5); opacity: 0.8; } 100% { transform: scale(2); opacity: 0; } }
+
+section { padding: 7rem 2rem; position: relative; overflow: hidden; }
+.section-dark { background: var(--bg2); }
+
+/* Dramatic animated gradient blobs */
+.glow-container { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.glow-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; }
+.glow-blob-blue { background: linear-gradient(135deg, #0066ff, #00ccff); }
+.glow-blob-purple { background: linear-gradient(135deg, #7c3aed, #c026d3); }
+.glow-blob-cyan { background: linear-gradient(135deg, #00d4ff, #0099ff); }
+
+/* Section: How It Works */
+#how { background: linear-gradient(180deg, var(--bg) 0%, #050a12 50%, var(--bg) 100%); }
+#how .glow-blob-1 { width: 600px; height: 600px; top: -200px; right: -150px; animation: blob-float-1 20s ease-in-out infinite; }
+#how .glow-blob-2 { width: 400px; height: 400px; bottom: -100px; left: -100px; animation: blob-float-2 25s ease-in-out infinite; }
+
+/* Section: Features - the big one */
+#features { background: linear-gradient(180deg, var(--bg) 0%, #0a0515 50%, var(--bg) 100%); }
+#features .glow-blob-1 { width: 800px; height: 800px; top: 10%; right: -300px; animation: blob-float-1 18s ease-in-out infinite; }
+#features .glow-blob-2 { width: 600px; height: 600px; top: 40%; left: -250px; animation: blob-float-2 22s ease-in-out infinite; }
+#features .glow-blob-3 { width: 500px; height: 500px; bottom: 5%; right: 20%; animation: blob-float-3 20s ease-in-out infinite; }
+
+/* Section: Pricing */
+#pricing { background: linear-gradient(180deg, var(--bg) 0%, #050810 50%, var(--bg) 100%); }
+#pricing .glow-blob-1 { width: 700px; height: 700px; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: blob-pulse 8s ease-in-out infinite; }
+#pricing .glow-blob-2 { width: 400px; height: 400px; top: 20%; left: 10%; animation: blob-float-2 20s ease-in-out infinite; }
+
+/* Section: Testimonials */
+#testimonials { background: linear-gradient(180deg, var(--bg) 0%, #0d0510 50%, var(--bg) 100%); }
+#testimonials .glow-blob-1 { width: 600px; height: 400px; top: -100px; left: 50%; transform: translateX(-50%); animation: blob-float-1 15s ease-in-out infinite; }
+
+/* Section: FAQ */
+#faq .glow-blob-1 { width: 500px; height: 500px; bottom: -200px; right: -100px; animation: blob-float-3 25s ease-in-out infinite; }
+
+/* CTA Section - dramatic */
+.cta-section { padding: 10rem 2rem; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, var(--bg), #030810, var(--bg2)); }
+.cta-section .glow-blob-1 { width: 800px; height: 800px; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: blob-pulse 6s ease-in-out infinite; }
+.cta-section .glow-blob-2 { width: 500px; height: 500px; top: 20%; left: 20%; animation: blob-float-1 15s ease-in-out infinite; }
+.cta-section .glow-blob-3 { width: 400px; height: 400px; bottom: 10%; right: 15%; animation: blob-float-2 18s ease-in-out infinite; }
+
+@keyframes blob-float-1 { 
+    0%, 100% { transform: translate(0, 0) scale(1); } 
+    25% { transform: translate(50px, -30px) scale(1.1); }
+    50% { transform: translate(20px, 40px) scale(0.95); } 
+    75% { transform: translate(-30px, 20px) scale(1.05); }
+}
+@keyframes blob-float-2 { 
+    0%, 100% { transform: translate(0, 0) scale(1); } 
+    33% { transform: translate(-40px, 30px) scale(1.08); }
+    66% { transform: translate(30px, -20px) scale(0.92); } 
+}
+@keyframes blob-float-3 { 
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); } 
+    50% { transform: translate(40px, -40px) rotate(10deg) scale(1.1); } 
+}
+@keyframes blob-pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+}
+
+/* Grid overlay */
+.grid-overlay { position: absolute; inset: 0; background-image: 
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px; pointer-events: none; mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black, transparent); }
+
+/* Spotlight effect */
+.spotlight { position: absolute; width: 100%; height: 100%; background: radial-gradient(ellipse 50% 30% at 50% 0%, rgba(88,166,255,0.15), transparent 70%); pointer-events: none; top: 0; left: 0; }
+
+/* Ensure content stays above effects */
+.section-inner { position: relative; z-index: 1; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--blue); margin-bottom: 1rem; }
+.section-tag::before, .section-tag::after { content: ''; width: 30px; height: 1px; background: linear-gradient(90deg, transparent, var(--blue)); }
+.section-tag::after { background: linear-gradient(90deg, var(--blue), transparent); }
+.section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1rem; }
+.section-header p { font-size: 1.1rem; color: var(--text2); max-width: 600px; margin: 0 auto; }
+
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+@media (max-width: 768px) { .steps-grid { grid-template-columns: 1fr; } }
+.step-card { background: linear-gradient(180deg, var(--surface), var(--bg)); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem 2rem; text-align: center; position: relative; transition: all 0.4s; overflow: hidden; }
+.step-card::before { content: ''; position: absolute; top: var(--mouse-y, 50%); left: var(--mouse-x, 50%); width: 300px; height: 300px; background: radial-gradient(circle, var(--blue-glow), transparent 70%); transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.step-card:hover::before { opacity: 1; }
+.step-card:hover { transform: translateY(-8px); border-color: var(--blue); box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 30px var(--blue-glow); }
+.step-number { width: 60px; height: 60px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--blue), var(--purple)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; box-shadow: 0 8px 30px var(--blue-glow); }
+.step-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
+.step-card p { font-size: 0.95rem; color: var(--text2); line-height: 1.6; }
+.step-card:not(:last-child)::after { content: ''; position: absolute; top: 50%; right: -1rem; width: 2rem; height: 2px; background: linear-gradient(90deg, var(--blue), transparent); }
+@media (max-width: 768px) { .step-card::after { display: none; } }
+
+.features-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 3rem; padding: 3rem; background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(163,113,247,0.05)); border-radius: 24px; position: relative; }
+.features-hero::before { content: ''; position: absolute; inset: 0; border-radius: 24px; padding: 1px; background: linear-gradient(135deg, rgba(88,166,255,0.3), rgba(163,113,247,0.3), rgba(88,166,255,0.3)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+@media (max-width: 768px) { .features-hero { grid-template-columns: 1fr; text-align: center; } }
+.features-hero-content h3 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+.features-hero-content p { font-size: 1.05rem; color: var(--text2); line-height: 1.7; margin-bottom: 1.5rem; }
+.features-hero-stats { display: flex; gap: 2rem; }
+@media (max-width: 768px) { .features-hero-stats { justify-content: center; } }
+.fh-stat { text-align: left; }
+@media (max-width: 768px) { .fh-stat { text-align: center; } }
+.fh-stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; color: var(--blue2); }
+.fh-stat-label { font-size: 0.85rem; color: var(--muted); }
+.features-hero-visual { display: flex; justify-content: center; }
+.speed-ring { width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(var(--blue) 0deg, var(--purple) 120deg, var(--blue) 240deg, transparent 240deg); display: flex; align-items: center; justify-content: center; position: relative; animation: speed-spin 3s linear infinite; }
+@keyframes speed-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.speed-ring-inner { width: 160px; height: 160px; background: var(--bg2); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: speed-spin 3s linear infinite reverse; }
+.speed-ring-value { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; }
+.speed-ring-label { font-size: 0.9rem; color: var(--text2); }
+
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .features-grid { grid-template-columns: 1fr; } }
+.feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.4s; position: relative; overflow: hidden; }
+.feature-card::before { content: ''; position: absolute; top: var(--mouse-y, 50%); left: var(--mouse-x, 50%); width: 250px; height: 250px; background: radial-gradient(circle, var(--blue-glow), transparent 70%); transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.feature-card:hover::before { opacity: 1; }
+.feature-card:hover { transform: translateY(-6px); border-color: var(--border2); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+.feature-icon { width: 52px; height: 52px; background: linear-gradient(135deg, rgba(88,166,255,0.15), rgba(163,113,247,0.1)); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; color: var(--blue); transition: all 0.3s; }
+.feature-card:hover .feature-icon { background: linear-gradient(135deg, var(--blue), var(--purple)); color: white; box-shadow: 0 8px 25px var(--blue-glow); }
+.feature-icon svg { width: 26px; height: 26px; }
+.feature-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.feature-card p { font-size: 0.9rem; color: var(--text2); line-height: 1.6; }
+
+.pricing-toggle { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
+.pricing-toggle span { font-size: 0.95rem; color: var(--text2); transition: color 0.3s; }
+.pricing-toggle span.active { color: var(--text); font-weight: 600; }
+.toggle-switch { width: 56px; height: 30px; background: var(--surface2); border-radius: 15px; cursor: pointer; position: relative; border: 1px solid var(--border); transition: all 0.3s; }
+.toggle-switch:hover { border-color: var(--blue); }
+.toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: linear-gradient(135deg, var(--blue), var(--purple)); border-radius: 50%; transition: transform 0.3s; box-shadow: 0 2px 8px var(--blue-glow); }
+.toggle-switch.free::after { transform: translateX(26px); }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+@media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; max-width: 400px; } }
+.pricing-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem 2rem; position: relative; transition: all 0.4s; overflow: hidden; }
+.pricing-card::before { content: ''; position: absolute; top: var(--mouse-y, 50%); left: var(--mouse-x, 50%); width: 350px; height: 350px; background: radial-gradient(circle, var(--blue-glow), transparent 70%); transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 0; }
+.pricing-card:hover::before { opacity: 1; }
+.pricing-card > * { position: relative; z-index: 1; }
+.pricing-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+.pricing-card.featured { background: linear-gradient(180deg, rgba(88,166,255,0.1), var(--surface)); border-color: var(--blue); transform: scale(1.02); box-shadow: 0 0 50px var(--blue-glow); }
+.pricing-card.featured:hover { transform: scale(1.02) translateY(-8px); }
+.pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); padding: 0.4rem 1.25rem; background: linear-gradient(135deg, var(--blue), var(--purple)); border-radius: 100px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.pricing-material { width: 50px; height: 32px; border-radius: 6px; margin-bottom: 1.25rem; }
+.pricing-material.pvc { background: linear-gradient(135deg, #2d3748, #1a202c); border: 1px solid var(--border); }
+.pricing-material.wood { background: linear-gradient(135deg, #92400e, #78350f); }
+.pricing-material.metal { background: linear-gradient(135deg, #71717a, #52525b); }
+.pricing-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.pricing-price { margin-bottom: 1.5rem; }
+.pricing-price .amount { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; font-weight: 700; }
+.pricing-price .period { font-size: 1rem; color: var(--text2); }
+.pricing-features { list-style: none; margin-bottom: 2rem; }
+.pricing-features li { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; font-size: 0.95rem; color: var(--text2); }
+.pricing-features li svg { width: 18px; height: 18px; color: var(--green); flex-shrink: 0; }
+
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+.testimonial-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; }
+.testimonial-card::before { content: ''; position: absolute; top: var(--mouse-y, 50%); left: var(--mouse-x, 50%); width: 300px; height: 300px; background: radial-gradient(circle, var(--purple-glow), transparent 70%); transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.testimonial-card:hover::before { opacity: 1; }
+.testimonial-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+.testimonial-stars { display: flex; gap: 0.25rem; margin-bottom: 1rem; color: #fbbf24; }
+.testimonial-text { font-size: 1rem; line-height: 1.7; margin-bottom: 1.5rem; color: var(--text2); }
+.testimonial-author { display: flex; align-items: center; gap: 1rem; }
+.testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--purple)); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.testimonial-info h4 { font-size: 0.95rem; font-weight: 600; }
+.testimonial-info p { font-size: 0.85rem; color: var(--muted); }
+
+.faq-list { max-width: 700px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; cursor: pointer; font-size: 1.1rem; font-weight: 600; transition: color 0.2s; }
+.faq-q:hover { color: var(--blue); }
+.faq-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+.faq-icon svg { width: 14px; height: 14px; transition: transform 0.3s; }
+.faq-item.open .faq-icon { background: var(--blue); }
+.faq-item.open .faq-icon svg { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+.faq-item.open .faq-a { max-height: 200px; padding-bottom: 1.5rem; }
+.faq-a p { color: var(--text2); line-height: 1.7; }
+
+.cta-content { position: relative; z-index: 1; }
+.cta-content h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1rem; }
+.cta-content p { font-size: 1.2rem; color: var(--text2); margin-bottom: 2rem; }
+
+footer { padding: 4rem 2rem 2rem; background: linear-gradient(180deg, var(--bg2) 0%, #020408 100%); position: relative; overflow: hidden; }
+footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--border2), var(--blue), var(--border2), transparent); }
+footer::after { content: ''; position: absolute; top: -100px; left: 50%; width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(88,166,255,0.08), transparent 70%); transform: translateX(-50%); pointer-events: none; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
+@media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+.footer-brand p { color: var(--muted); font-size: 0.9rem; margin-top: 1rem; max-width: 280px; line-height: 1.6; }
+.footer-col h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text2); margin-bottom: 1rem; }
+.footer-col a { display: block; font-size: 0.9rem; color: var(--muted); padding: 0.4rem 0; transition: color 0.2s; }
+.footer-col a:hover { color: var(--text); }
+.footer-bottom { max-width: 1100px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; transition: all 0.3s; }
+.modal-overlay.show { opacity: 1; visibility: visible; }
+.auth-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; transform: scale(0.95) translateY(20px); transition: transform 0.3s; }
+.modal-overlay.show .auth-modal { transform: scale(1) translateY(0); }
+.auth-modal-header { padding: 1.5rem 1.5rem 0; display: flex; justify-content: space-between; align-items: flex-start; }
+.auth-modal-close { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: var(--text2); transition: all 0.2s; }
+.auth-modal-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+.auth-modal-body { padding: 1.5rem; }
+.auth-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+.auth-subtitle { color: var(--text2); margin-bottom: 1.5rem; }
+.auth-subtitle a { color: var(--blue); cursor: pointer; }
+.social-auth { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
+.social-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-weight: 500; transition: all 0.2s; }
+.social-btn:hover { background: var(--surface2); border-color: var(--border2); }
+.social-btn svg { width: 20px; height: 20px; }
+.auth-divider { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; color: var(--muted); font-size: 0.8rem; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.auth-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--text2); margin-bottom: 0.4rem; }
+.form-input { width: 100%; padding: 0.85rem 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 0.95rem; transition: all 0.2s; }
+.form-input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-glow); }
+.form-input::placeholder { color: var(--muted); }
+.input-with-icon { position: relative; }
+.input-with-icon .form-input { padding-right: 3rem; }
+.input-icon { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--muted); padding: 0.25rem; }
+.form-options { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+.checkbox-group { display: flex; align-items: center; gap: 0.5rem; }
+.checkbox-group input { width: 18px; height: 18px; accent-color: var(--blue); cursor: pointer; }
+.checkbox-group label { color: var(--text2); cursor: pointer; }
+.forgot-link { color: var(--blue); }
+.auth-submit { width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--blue), #2563eb); border: none; border-radius: 12px; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; }
+.auth-submit::before { content: ''; position: absolute; inset: -2px; background: linear-gradient(135deg, var(--blue), var(--purple)); border-radius: 14px; z-index: -1; opacity: 0; filter: blur(15px); transition: opacity 0.3s; }
+.auth-submit:hover::before { opacity: 1; }
+.auth-submit:hover { transform: translateY(-2px); }
+.auth-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.auth-footer { padding: 1rem 1.5rem 1.5rem; text-align: center; font-size: 0.8rem; color: var(--muted); }
+.auth-footer a { color: var(--text2); }
+
+#dashboardPage { display: none; padding-top: 70px; min-height: 100vh; }
+.dash-layout { display: flex; min-height: calc(100vh - 70px); }
+.dash-sidebar { width: 260px; background: var(--bg2); border-right: 1px solid var(--border); padding: 1.5rem 1rem; position: fixed; top: 70px; left: 0; bottom: 0; overflow-y: auto; }
+@media (max-width: 900px) { .dash-sidebar { display: none; } }
+.dash-nav { display: flex; flex-direction: column; gap: 0.25rem; }
+.dash-nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; border-radius: 10px; color: var(--text2); font-size: 0.9rem; font-weight: 500; transition: all 0.2s; width: 100%; text-align: left; }
+.dash-nav-item:hover { background: rgba(255,255,255,0.03); color: var(--text); }
+.dash-nav-item.active { background: rgba(88,166,255,0.1); color: var(--blue); }
+.dash-nav-item svg { width: 20px; height: 20px; opacity: 0.7; }
+.dash-nav-section { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); padding: 1.5rem 1rem 0.5rem; }
+.dash-main { flex: 1; margin-left: 260px; padding: 2rem; }
+@media (max-width: 900px) { .dash-main { margin-left: 0; } }
+.dash-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
+.dash-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; }
+.dash-header p { color: var(--text2); margin-top: 0.25rem; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+@media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; transition: all 0.3s; }
+.stat-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.stat-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+.stat-icon.blue { background: rgba(88,166,255,0.15); color: var(--blue); }
+.stat-icon.green { background: rgba(63,185,80,0.15); color: var(--green); }
+.stat-icon.purple { background: rgba(163,113,247,0.15); color: var(--purple); }
+.stat-icon.gold { background: rgba(210,153,34,0.15); color: var(--gold); }
+.stat-icon svg { width: 22px; height: 22px; }
+.stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; }
+.stat-label { font-size: 0.85rem; color: var(--text2); }
+.stat-change { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; font-weight: 600; margin-top: 0.5rem; padding: 0.25rem 0.5rem; border-radius: 6px; }
+.stat-change.up { background: rgba(63,185,80,0.1); color: var(--green); }
+.stat-change.down { background: rgba(248,81,73,0.1); color: #f85149; }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 1.5rem; }
+.panel-header { padding: 1.25rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.panel-title { font-weight: 700; }
+.panel-body { padding: 1.25rem; }
+.dash-section { display: none; }
+.dash-section.active { display: block; }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+    <div class="nav-inner">
+        <div class="logo" onclick="goHome()">tap<span>pr</span></div>
+        <div class="nav-links" id="navLinks"><a href="#how">How It Works</a><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+        <div class="nav-auth" id="navAuth"><button class="nav-login" onclick="openAuth('login')">Log In</button><button class="btn-glow" onclick="openAuth('signup')">Get Started</button></div>
+        <div class="nav-auth" id="navUser" style="display:none;position:relative;"><button class="nav-user" onclick="toggleUserDropdown()"><div class="nav-user-avatar" id="navAvatar">SC</div><span class="nav-user-name" id="navName">Scott</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="nav-user-dropdown" id="userDropdown"><a href="#" onclick="showDashSection('profile');return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Edit Profile</a><a href="#" onclick="showDashSection('settings');return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a><div class="dropdown-divider"></div><button onclick="logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log Out</button></div></div>
+        <button class="mobile-menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+</nav>
+
+<div class="modal-overlay" id="authModal" onclick="if(event.target===this)closeAuth()">
+    <div class="auth-modal">
+        <div class="auth-modal-header"><div></div><button class="auth-modal-close" onclick="closeAuth()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+        <div class="auth-modal-body">
+            <div id="loginForm"><h2 class="auth-title">Welcome back</h2><p class="auth-subtitle">Don't have an account? <a onclick="switchAuth('signup')">Sign up free</a></p><div class="social-auth"><button class="social-btn" type="button" onclick="socialAuth('google')"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>Google</button><button class="social-btn" type="button" onclick="socialAuth('apple')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>Apple</button></div><div class="auth-divider">or</div><form class="auth-form" onsubmit="handleLogin(event)"><div class="form-group"><label>Email</label><input type="email" class="form-input" id="loginEmail" placeholder="you@example.com" required></div><div class="form-group"><label>Password</label><div class="input-with-icon"><input type="password" class="form-input" id="loginPassword" placeholder="••••••••" required><button type="button" class="input-icon" onclick="togglePassword('loginPassword')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div><div class="form-options"><div class="checkbox-group"><input type="checkbox" id="remember" checked><label for="remember">Remember me</label></div><a class="forgot-link" href="#">Forgot?</a></div><button type="submit" class="auth-submit">Log In</button></form></div>
+            <div id="signupForm" style="display:none;"><h2 class="auth-title">Create account</h2><p class="auth-subtitle">Already have an account? <a onclick="switchAuth('login')">Log in</a></p><div class="social-auth"><button class="social-btn" type="button" onclick="socialAuth('google')"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>Google</button><button class="social-btn" type="button" onclick="socialAuth('apple')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>Apple</button></div><div class="auth-divider">or</div><form class="auth-form" onsubmit="handleSignup(event)"><div class="form-row"><div class="form-group"><label>First name</label><input type="text" class="form-input" id="signupFirst" placeholder="John" required></div><div class="form-group"><label>Last name</label><input type="text" class="form-input" id="signupLast" placeholder="Doe" required></div></div><div class="form-group"><label>Email</label><input type="email" class="form-input" id="signupEmail" placeholder="you@example.com" required></div><div class="form-group"><label>Password</label><div class="input-with-icon"><input type="password" class="form-input" id="signupPassword" placeholder="8+ characters" required minlength="8"><button type="button" class="input-icon" onclick="togglePassword('signupPassword')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div><div class="checkbox-group" style="margin-bottom:0.5rem;"><input type="checkbox" id="terms" required><label for="terms">I agree to <a href="/terms.html" style="color:var(--blue)">Terms</a> & <a href="/privacy.html" style="color:var(--blue)">Privacy</a></label></div><button type="submit" class="auth-submit">Create Account</button></form></div>
+        </div>
+        <div class="auth-footer">By continuing, you agree to our <a href="/terms.html">Terms</a> and <a href="/privacy.html">Privacy Policy</a></div>
+    </div>
+</div>
+
+<div id="landingPage">
+<section class="hero"><div class="hero-orb hero-orb-1"></div><div class="hero-orb hero-orb-2"></div><div class="hero-orb hero-orb-3"></div><div class="hero-grid"></div><div class="hero-inner"><div class="hero-content"><div class="hero-badge reveal"><span class="hero-badge-dot"></span>No app required</div><h1 class="reveal reveal-delay-1">One Tap.<br><span class="gradient">Infinite Connections.</span></h1><p class="hero-desc reveal reveal-delay-2">NFC business cards that share your contact info instantly. Tap any phone, your profile opens. Update anytime—every card updates with it.</p><div class="hero-buttons reveal reveal-delay-3"><button class="btn-glow btn-glow-large" onclick="openAuth('signup')">Get Your Card</button><button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See How It Works</button></div><div class="hero-stats reveal reveal-delay-4"><div class="hero-stat"><div class="hero-stat-value" data-count="10000">0</div><div class="hero-stat-label">Cards shipped</div></div><div class="hero-stat"><div class="hero-stat-value" data-count="500000">0</div><div class="hero-stat-label">Taps made</div></div><div class="hero-stat"><div class="hero-stat-value">4.9★</div><div class="hero-stat-label">Rating</div></div></div></div><div class="hero-card-container reveal reveal-delay-2"><div class="hero-card-wrapper" id="heroCard"><div class="hero-card"><div class="hero-card-header"><div class="hero-card-logo">tap<span>pr</span></div><div class="hero-card-chip"></div></div><div class="hero-card-footer"><div><div class="hero-card-name">Your Name</div><div class="hero-card-title">Your Title</div></div><div class="hero-card-nfc"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h2m16 0h2M6 12a6 6 0 0 1 12 0M9 12a3 3 0 0 1 6 0"/></svg></div></div></div><div class="tap-indicator"><div class="tap-ripple"></div><div class="tap-ripple"></div><div class="tap-ripple"></div><div class="tap-finger">👆</div></div></div></div></div></section>
+
+<section class="section-dark" id="how">
+<div class="glow-container">
+<div class="glow-blob glow-blob-blue glow-blob-1"></div>
+<div class="glow-blob glow-blob-purple glow-blob-2"></div>
+</div>
+<div class="grid-overlay"></div>
+<div class="section-inner"><div class="section-header"><div class="section-tag reveal">How It Works</div><h2 class="reveal reveal-delay-1">Ready in 3 Steps</h2><p class="reveal reveal-delay-2">No technical skills needed. Set up in under 2 minutes.</p></div><div class="steps-grid"><div class="step-card reveal reveal-delay-1"><div class="step-number">1</div><h3>Create Profile</h3><p>Add your photo, contact info, and links. It takes less than 2 minutes to set up.</p></div><div class="step-card reveal reveal-delay-2"><div class="step-number">2</div><h3>Pick Your Card</h3><p>Choose PVC, wood, or metal. We'll ship it to your door in 3-5 business days.</p></div><div class="step-card reveal reveal-delay-3"><div class="step-number">3</div><h3>Tap & Share</h3><p>Hold your card to any smartphone. Your profile opens instantly—no app needed.</p></div></div></div></section>
+
+<section id="features">
+<div class="glow-container">
+<div class="glow-blob glow-blob-purple glow-blob-1"></div>
+<div class="glow-blob glow-blob-blue glow-blob-2"></div>
+<div class="glow-blob glow-blob-cyan glow-blob-3"></div>
+</div>
+<div class="spotlight"></div>
+<div class="section-inner"><div class="section-header"><div class="section-tag reveal">Features</div><h2 class="reveal reveal-delay-1">Everything You Need</h2><p class="reveal reveal-delay-2">Built for professionals who take networking seriously.</p></div><div class="features-hero reveal"><div class="features-hero-content"><h3>Instant NFC Sharing</h3><p>Your profile loads in under a second. Works with iPhone XR and newer, plus most Android phones from the last 5 years. No app downloads, no QR scanning.</p><div class="features-hero-stats"><div class="fh-stat"><div class="fh-stat-value">&lt;1s</div><div class="fh-stat-label">Load time</div></div><div class="fh-stat"><div class="fh-stat-value">90%</div><div class="fh-stat-label">Phone compatibility</div></div></div></div><div class="features-hero-visual"><div class="speed-ring"><div class="speed-ring-inner"><div class="speed-ring-value">⚡</div><div class="speed-ring-label">Instant</div></div></div></div></div><div class="features-grid"><div class="feature-card reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/></svg></div><h4>Always Updated</h4><p>Change your info once and every card updates automatically. New job? New number? One click.</p></div><div class="feature-card reveal reveal-delay-1"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h4>Lead Capture</h4><p>Know who viewed your profile and collect their contact info for easy follow-ups.</p></div><div class="feature-card reveal reveal-delay-2"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h4>Unlimited Links</h4><p>Add LinkedIn, Calendly, portfolio, Instagram—any link you want. Drag to reorder.</p></div><div class="feature-card reveal reveal-delay-3"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></div><h4>Analytics</h4><p>Track profile views, link clicks, and contact saves in real-time.</p></div><div class="feature-card reveal reveal-delay-4"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="17" r="2"/><circle cx="6" cy="12" r="3"/></svg></div><h4>Custom Branding</h4><p>Choose colors and themes. Make your profile match your personal brand.</p></div><div class="feature-card reveal reveal-delay-5"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h4>Works Forever</h4><p>Cards work with basic features even without subscription. Your investment is protected.</p></div></div></div></section>
+
+<section class="section-dark" id="pricing">
+<div class="glow-container">
+<div class="glow-blob glow-blob-blue glow-blob-1"></div>
+<div class="glow-blob glow-blob-purple glow-blob-2"></div>
+</div>
+<div class="section-inner"><div class="section-header"><div class="section-tag reveal">Pricing</div><h2 class="reveal reveal-delay-1">Simple, Honest Pricing</h2><p class="reveal reveal-delay-2">$3/month or $25/year. Cancel anytime.</p></div><div class="pricing-toggle reveal"><span id="toggleSub" class="active">With Subscription</span><div class="toggle-switch" id="toggleSwitch" onclick="togglePricing()"></div><span id="toggleFree">One-Time Purchase</span></div><div class="pricing-grid"><div class="pricing-card reveal reveal-delay-1"><div class="pricing-material pvc"></div><h3>PVC Plastic</h3><div class="pricing-price"><span class="amount sub-price">Free</span><span class="amount free-price" style="display:none;">$10</span></div><ul class="pricing-features"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Durable PVC card</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="sub-feat">Unlimited links</span><span class="free-feat" style="display:none;">Basic features</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="sub-feat">Analytics</span><span class="free-feat" style="display:none;">Name & contact</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="sub-feat">Lead capture</span><span class="free-feat" style="display:none;">Works forever</span></li></ul><button class="btn-secondary" style="width:100%;" onclick="openAuth('signup')">Get Started</button></div><div class="pricing-card featured reveal reveal-delay-2"><div class="pricing-badge">Most Popular</div><div class="pricing-material wood"></div><h3>Wood</h3><div class="pricing-price"><span class="amount sub-price">$10</span><span class="amount free-price" style="display:none;">$20</span></div><ul class="pricing-features"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Natural wood finish</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="sub-feat">Unlimited links</span><span class="free-feat" style="display:none;">Basic features</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="sub-feat">Analytics</span><span class="free-feat" style="display:none;">Name & contact</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="sub-feat">Lead capture</span><span class="free-feat" style="display:none;">Works forever</span></li></ul><button class="btn-glow" style="width:100%;" onclick="openAuth('signup')">Get Premium</button></div><div class="pricing-card reveal reveal-delay-3"><div class="pricing-material metal"></div><h3>Metal</h3><div class="pricing-price"><span class="amount sub-price">$20</span><span class="amount free-price" style="display:none;">$40</span></div><ul class="pricing-features"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Brushed aluminum</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="sub-feat">Unlimited links</span><span class="free-feat" style="display:none;">Basic features</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="sub-feat">Analytics</span><span class="free-feat" style="display:none;">Name & contact</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="sub-feat">Lead capture</span><span class="free-feat" style="display:none;">Works forever</span></li></ul><button class="btn-secondary" style="width:100%;" onclick="openAuth('signup')">Get Executive</button></div></div></div></section>
+
+<section id="testimonials">
+<div class="glow-container">
+<div class="glow-blob glow-blob-purple glow-blob-1"></div>
+</div>
+<div class="spotlight"></div>
+<div class="section-inner"><div class="section-header"><div class="section-tag reveal">Testimonials</div><h2 class="reveal reveal-delay-1">Loved by Professionals</h2></div><div class="testimonials-grid"><div class="testimonial-card reveal"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"Tapped my card 50 times at a conference. 38 people left their contact info through lead capture. Way better than collecting paper cards I'd never follow up on."</p><div class="testimonial-author"><div class="testimonial-avatar">MR</div><div class="testimonial-info"><h4>Mike Rodriguez</h4><p>Sales Director</p></div></div></div><div class="testimonial-card reveal reveal-delay-1"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"The wood card gets comments every single time. It's a conversation starter before I even say a word."</p><div class="testimonial-author"><div class="testimonial-avatar">SJ</div><div class="testimonial-info"><h4>Sarah Johnson</h4><p>Real Estate Agent</p></div></div></div><div class="testimonial-card reveal reveal-delay-2"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"Changed jobs twice this year. Updated my profile once each time. All my cards still work perfectly."</p><div class="testimonial-author"><div class="testimonial-avatar">AC</div><div class="testimonial-info"><h4>Alex Chen</h4><p>Product Designer</p></div></div></div></div></div></section>
+
+<section class="section-dark" id="faq">
+<div class="glow-container">
+<div class="glow-blob glow-blob-cyan glow-blob-1"></div>
+</div>
+<div class="section-inner"><div class="section-header"><div class="section-tag reveal">FAQ</div><h2 class="reveal reveal-delay-1">Common Questions</h2></div><div class="faq-list"><div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>What phones work with Tappr?</span><div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><p>iPhone XR/XS and newer (2018+), plus most Android phones from the last 5 years with NFC.</p></div></div><div class="faq-item reveal reveal-delay-1"><div class="faq-q" onclick="toggleFaq(this)"><span>Do people need an app?</span><div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><p>No app needed on either side. Your profile opens in their browser instantly.</p></div></div><div class="faq-item reveal reveal-delay-2"><div class="faq-q" onclick="toggleFaq(this)"><span>What if I cancel my subscription?</span><div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><p>Your card keeps working forever with basic features. Premium features pause until you resubscribe.</p></div></div><div class="faq-item reveal reveal-delay-3"><div class="faq-q" onclick="toggleFaq(this)"><span>How much does it cost?</span><div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><p>$3/month or $25/year. Includes free PVC card, unlimited links, analytics, and lead capture.</p></div></div></div></div></section>
+
+<section class="cta-section">
+<div class="glow-container">
+<div class="glow-blob glow-blob-blue glow-blob-1"></div>
+<div class="glow-blob glow-blob-purple glow-blob-2"></div>
+<div class="glow-blob glow-blob-cyan glow-blob-3"></div>
+</div>
+<div class="cta-content"><h2 class="reveal">Ready to Tap In?</h2><p class="reveal reveal-delay-1">Get your card in 3–5 days. No contracts. Cancel anytime.</p><button class="btn-glow btn-glow-large reveal reveal-delay-2" onclick="openAuth('signup')">Get Your Card Now</button></div></section>
+
+<footer><div class="footer-inner"><div class="footer-brand"><div class="logo">tap<span>pr</span></div><p>NFC business cards for the modern professional.</p></div><div class="footer-col"><h4>Product</h4><a href="#how">How It Works</a><a href="#features">Features</a><a href="#pricing">Pricing</a></div><div class="footer-col"><h4>Resources</h4><a href="/blog/">Blog</a><a href="/contact.html">Contact</a><a href="#" onclick="openAuth('login');return false;">Login</a></div><div class="footer-col"><h4>Legal</h4><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div></div><div class="footer-bottom"><span>© 2025 Tappr</span><span>Made for networkers.</span></div></footer>
+</div>
+
+<div id="dashboardPage"><div class="dash-layout"><aside class="dash-sidebar"><nav class="dash-nav"><button class="dash-nav-item active" data-section="overview" onclick="showDashSection('overview')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</button><button class="dash-nav-item" data-section="profile" onclick="showDashSection('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Edit Profile</button><button class="dash-nav-item" data-section="links" onclick="showDashSection('links')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Links</button><button class="dash-nav-item" data-section="leads" onclick="showDashSection('leads')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Leads</button><div class="dash-nav-section">Settings</div><button class="dash-nav-item" data-section="cards" onclick="showDashSection('cards')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="12" cy="12" r="2"/></svg>My Cards</button><button class="dash-nav-item" data-section="settings" onclick="showDashSection('settings')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</button></nav></aside><main class="dash-main"><div class="dash-section active" id="sectionOverview"><div class="dash-header"><div><h1>Dashboard</h1><p>Welcome back! Here's how your card is performing.</p></div><a href="#" class="btn-glow">View Profile</a></div><div class="stats-grid"><div class="stat-card"><div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="stat-value">2,847</div><div class="stat-label">Profile Views</div><div class="stat-change up">↑ 12%</div></div><div class="stat-card"><div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg></div><div class="stat-value">436</div><div class="stat-label">Contact Saves</div><div class="stat-change up">↑ 8%</div></div><div class="stat-card"><div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><div class="stat-value">1,203</div><div class="stat-label">Link Clicks</div><div class="stat-change down">↓ 3%</div></div><div class="stat-card"><div class="stat-icon gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="stat-value">89</div><div class="stat-label">Leads Captured</div><div class="stat-change up">↑ 24%</div></div></div><div class="panel"><div class="panel-header"><span class="panel-title">Recent Activity</span></div><div class="panel-body"><p style="color:var(--text2)">Activity will appear here as people interact with your profile.</p></div></div></div><div class="dash-section" id="sectionProfile"><div class="dash-header"><div><h1>Edit Profile</h1><p>Update your information.</p></div><button class="btn-glow">Save Changes</button></div><div class="panel"><div class="panel-header"><span class="panel-title">Basic Info</span></div><div class="panel-body"><div class="form-group" style="margin-bottom:1rem;"><label>First name</label><input type="text" class="form-input" value="Scott"></div><div class="form-group" style="margin-bottom:1rem;"><label>Last name</label><input type="text" class="form-input" value="Chen"></div><div class="form-group" style="margin-bottom:1rem;"><label>Job title</label><input type="text" class="form-input" value="Sales Executive"></div><div class="form-group" style="margin-bottom:1rem;"><label>Company</label><input type="text" class="form-input" value="Sensi.ai"></div><div class="form-group"><label>Bio</label><textarea class="form-input" rows="3">Helping home care agencies leverage AI.</textarea></div></div></div></div><div class="dash-section" id="sectionLinks"><div class="dash-header"><div><h1>Links</h1><p>Manage your profile links.</p></div><button class="btn-glow">Save</button></div><div class="panel"><div class="panel-body"><p style="color:var(--text2)">Add links to LinkedIn, Calendly, portfolio, etc.</p></div></div></div><div class="dash-section" id="sectionLeads"><div class="dash-header"><div><h1>Leads</h1><p>People who shared their info.</p></div><button class="btn-secondary">Export CSV</button></div><div class="panel"><div class="panel-body"><p style="color:var(--text2)">No leads yet. Share your profile to start collecting contacts.</p></div></div></div><div class="dash-section" id="sectionCards"><div class="dash-header"><div><h1>My Cards</h1><p>Your physical cards.</p></div><button class="btn-glow">Order Card</button></div><div class="panel"><div class="panel-body"><p style="color:var(--text2)">Order your first card to get started.</p></div></div></div><div class="dash-section" id="sectionSettings"><div class="dash-header"><div><h1>Settings</h1><p>Account settings.</p></div></div><div class="panel"><div class="panel-body"><div style="margin-bottom:1.5rem;"><h3 style="font-size:1rem;margin-bottom:0.5rem;">Profile URL</h3><input type="text" class="form-input" value="tappr.one/scottchen" readonly style="max-width:400px;"></div><div><h3 style="font-size:1rem;margin-bottom:0.5rem;">Subscription</h3><p style="color:var(--text2);margin-bottom:1rem;">Pro Plan • $25/year</p><button class="btn-secondary">Manage</button></div></div></div></div></main></div></div>
+
+<script>
+let isLoggedIn=false,currentUser=null;
+const revealElements=document.querySelectorAll('.reveal');
+const revealObserver=new IntersectionObserver(e=>{e.forEach(t=>{if(t.isIntersecting)t.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+revealElements.forEach(el=>revealObserver.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50)});
+
+// Mouse follow glow effect on cards
+document.querySelectorAll('.step-card, .feature-card, .pricing-card, .testimonial-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+        const rect=card.getBoundingClientRect();
+        const x=e.clientX-rect.left;
+        const y=e.clientY-rect.top;
+        card.style.setProperty('--mouse-x',x+'px');
+        card.style.setProperty('--mouse-y',y+'px');
+    });
+});
+const heroCard=document.getElementById('heroCard');
+if(heroCard){document.addEventListener('mousemove',e=>{const rect=heroCard.getBoundingClientRect();const centerX=rect.left+rect.width/2;const centerY=rect.top+rect.height/2;const rotateY=((e.clientX-centerX)/window.innerWidth)*20;const rotateX=((centerY-e.clientY)/window.innerHeight)*20;heroCard.style.transform=`rotateY(${rotateY}deg) rotateX(${rotateX}deg)`})}
+const countElements=document.querySelectorAll('[data-count]');
+const countObserver=new IntersectionObserver(e=>{e.forEach(t=>{if(t.isIntersecting){const el=t.target;const target=parseInt(el.dataset.count);let current=0;const increment=target/60;const timer=setInterval(()=>{current+=increment;if(current>=target){current=target;clearInterval(timer)}el.textContent=Math.floor(current).toLocaleString()+'+'},16);countObserver.unobserve(el)}})},{threshold:0.5});
+countElements.forEach(el=>countObserver.observe(el));
+function togglePricing(){const sw=document.getElementById('toggleSwitch');const isFree=sw.classList.toggle('free');document.getElementById('toggleSub').classList.toggle('active',!isFree);document.getElementById('toggleFree').classList.toggle('active',isFree);document.querySelectorAll('.sub-price, .sub-feat').forEach(el=>el.style.display=isFree?'none':'');document.querySelectorAll('.free-price, .free-feat').forEach(el=>el.style.display=isFree?'':'none')}
+function toggleFaq(el){const item=el.parentElement;const wasOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!wasOpen)item.classList.add('open')}
+function openAuth(mode){document.getElementById('authModal').classList.add('show');document.body.style.overflow='hidden';switchAuth(mode)}
+function closeAuth(){document.getElementById('authModal').classList.remove('show');document.body.style.overflow=''}
+function switchAuth(mode){document.getElementById('loginForm').style.display=mode==='login'?'block':'none';document.getElementById('signupForm').style.display=mode==='signup'?'block':'none'}
+function togglePassword(id){const input=document.getElementById(id);input.type=input.type==='password'?'text':'password'}
+function handleLogin(e){e.preventDefault();const btn=e.target.querySelector('.auth-submit');btn.disabled=true;btn.textContent='Logging in...';setTimeout(()=>{login({firstName:'Scott',lastName:'Chen',email:document.getElementById('loginEmail').value});closeAuth();btn.disabled=false;btn.textContent='Log In'},800)}
+function handleSignup(e){e.preventDefault();const btn=e.target.querySelector('.auth-submit');btn.disabled=true;btn.textContent='Creating account...';setTimeout(()=>{login({firstName:document.getElementById('signupFirst').value,lastName:document.getElementById('signupLast').value,email:document.getElementById('signupEmail').value});closeAuth();btn.disabled=false;btn.textContent='Create Account'},800)}
+function socialAuth(provider){login({firstName:'Scott',lastName:'Chen',email:'scott@example.com'});closeAuth()}
+function login(user){isLoggedIn=true;currentUser=user;document.getElementById('navAuth').style.display='none';document.getElementById('navUser').style.display='flex';document.getElementById('navAvatar').textContent=user.firstName[0]+user.lastName[0];document.getElementById('navName').textContent=user.firstName;document.getElementById('navLinks').style.display='none';document.getElementById('landingPage').style.display='none';document.getElementById('dashboardPage').style.display='block';window.scrollTo(0,0)}
+function logout(){isLoggedIn=false;currentUser=null;document.getElementById('navAuth').style.display='flex';document.getElementById('navUser').style.display='none';document.getElementById('navLinks').style.display='flex';document.getElementById('userDropdown').classList.remove('show');document.getElementById('landingPage').style.display='block';document.getElementById('dashboardPage').style.display='none';window.scrollTo(0,0)}
+function goHome(){if(isLoggedIn){showDashSection('overview')}else{window.scrollTo(0,0)}}
+function toggleUserDropdown(){document.getElementById('userDropdown').classList.toggle('show')}
+document.addEventListener('click',e=>{if(!e.target.closest('.nav-user')&&!e.target.closest('.nav-user-dropdown')){document.getElementById('userDropdown').classList.remove('show')}});
+function showDashSection(section){document.querySelectorAll('.dash-nav-item').forEach(item=>{item.classList.toggle('active',item.dataset.section===section)});document.querySelectorAll('.dash-section').forEach(s=>s.classList.remove('active'));const el=document.getElementById('section'+section.charAt(0).toUpperCase()+section.slice(1));if(el)el.classList.add('active');document.getElementById('userDropdown').classList.remove('show')}
+</script>
+</body>
+</html>
